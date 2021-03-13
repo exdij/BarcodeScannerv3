@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText ip_editText;
     private EditText quantityOld_editText;
     private EditText quantityNew_editText;
-    private ItemViewModel model;
+    private ItemViewModel model_item;
     RESTMethods rest = new RESTMethods();
 
 
@@ -28,13 +28,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent intent = getIntent();
+        String ip = intent.getStringExtra("ip");
         EAN_editText = findViewById(R.id.EAN_editText);
         name_editText = findViewById(R.id.name_editText);
         quantityOld_editText = findViewById(R.id.quantityOld_editText);
         quantityNew_editText = findViewById(R.id.quantityNew_editText);
         ip_editText = findViewById(R.id.ip_editText);
+        model_item = new ViewModelProvider(this).get(ItemViewModel.class);
 
-        model = new ViewModelProvider(this).get(ItemViewModel.class);
         final Observer<Item> itemObserver = new Observer<Item>() {
             @Override
             public void onChanged(Item item) {
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        model.getMutableItem().observe(this, itemObserver);
+        model_item.getMutableItem().observe(this, itemObserver);
 
         findViewById(R.id.scan_button).setOnClickListener(v -> scanBtnClicked());
         findViewById(R.id.put_button).setOnClickListener(v -> putBtnClicked());
@@ -89,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
             } else {
                 EAN = result.getContents();
-                rest.request(EAN, model, ip_editText.getText().toString());
+                rest.request(EAN, model_item, ip_editText.getText().toString());
 
             }
         } else {

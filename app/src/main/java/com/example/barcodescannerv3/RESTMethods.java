@@ -1,10 +1,6 @@
 package com.example.barcodescannerv3;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
-
-import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -18,7 +14,8 @@ import okhttp3.Response;
 
 public class RESTMethods {
     OkHttpClient client = new OkHttpClient();
-    private String port = "9090";
+    private String port = "8080";
+
     public void request(String EAN, ItemViewModel model, String ip){
         Request request = new Request.Builder()
                 .url("http://" + ip + ":"+ port +"/get")
@@ -59,5 +56,23 @@ public class RESTMethods {
 
             }
         });
+    }
+    public void ping(String ip, BooleanViewModel aBoolean) throws IOException {
+        Request request = new Request.Builder()
+                .url("http://" + ip + ":"+ port +"/ping")
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e){
+                aBoolean.getMutableBoolean().postValue(false);
+                call.cancel();
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                aBoolean.getMutableBoolean().postValue(response.isSuccessful());
+            }
+        });
+
     }
 }
