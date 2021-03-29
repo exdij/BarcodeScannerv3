@@ -5,6 +5,7 @@ App made in Java for Android that let's the user scan barcodes to read and updat
 
 ### Tech Stack
 * Java
+* Gradle
 * Spring
 * Lombok
 * MySQL
