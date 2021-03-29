@@ -15,9 +15,9 @@ import com.google.zxing.integration.android.IntentResult;
 
 public class MainActivity extends AppCompatActivity {
     public String EAN = null;
+    private String ip = null;
     private EditText EAN_editText;
     private EditText name_editText;
-    private EditText ip_editText;
     private EditText quantityOld_editText;
     private EditText quantityNew_editText;
     private ItemViewModel model_item;
@@ -29,12 +29,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Intent intent = getIntent();
-        String ip = intent.getStringExtra("ip");
+        ip = intent.getStringExtra("ip");
         EAN_editText = findViewById(R.id.EAN_editText);
         name_editText = findViewById(R.id.name_editText);
         quantityOld_editText = findViewById(R.id.quantityOld_editText);
         quantityNew_editText = findViewById(R.id.quantityNew_editText);
-        ip_editText = findViewById(R.id.ip_editText);
         model_item = new ViewModelProvider(this).get(ItemViewModel.class);
 
         final Observer<Item> itemObserver = new Observer<Item>() {
@@ -67,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
             item.setName(name_editText.getText().toString());
             item.setNew_amount(quantityNew_editText.getText().toString());
             item.setOld_amount(quantityOld_editText.getText().toString());
-            rest.put(item, ip_editText.getText().toString());
+            rest.put(item, ip);
             scanBtnClicked();
         }
         private void sameBtnClicked(){
@@ -76,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             item.setName(name_editText.getText().toString());
             item.setNew_amount(quantityOld_editText.getText().toString());
             item.setOld_amount(quantityOld_editText.getText().toString());
-            rest.put(item, ip_editText.getText().toString());
+            rest.put(item, ip);
             scanBtnClicked();
         }
 
@@ -91,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
             } else {
                 EAN = result.getContents();
-                rest.request(EAN, model_item, ip_editText.getText().toString());
+                rest.request(EAN, model_item, ip);
 
             }
         } else {

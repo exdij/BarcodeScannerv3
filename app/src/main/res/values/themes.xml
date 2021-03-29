@@ -18,6 +18,9 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+    <style name="Theme.BarcodeScannerv3.NoTitle">
+        <item name="android:label">""</item>
+    </style>
 
     <style name="Theme.BarcodeScannerv3.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
