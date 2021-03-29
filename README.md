@@ -1,3 +1,10 @@
 # BarcodeScannerv3
 App made in Java for Android that let's the user scan barcodes and update the item quantity in database
-![alt text](https://github.com/exdij/BarcodeScannerv3/tree/master/app/src/main/res/drawable/logo.png?raw=true)
+![logo](https://user-images.githubusercontent.com/2270967/112879488-7de64000-90c9-11eb-887d-a212cafd01ff.png)
+
+### Tech Stack
+* Java
+* Spring
+* Lombok
+* MySQL
+* Android Studio
